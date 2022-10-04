@@ -72,3 +72,42 @@ const user: UserWithRole = {
   skills: ['1', '2'],
   roleId: 1,
 };
+
+//never
+
+type paymanyAction = 'refund' | 'checkout' | 'reject';
+
+function processAction(action: paymanyAction) {
+  switch (action) {
+    case 'refund':
+      //...
+      break;
+    case 'checkout':
+      //...
+      break;
+    case 'reject':
+      //...
+      break;
+    default:
+      const _: never = action;
+      throw new Error('Нет такого action');
+  }
+}
+
+// asert - проверка что свойство существует в объекте!
+
+interface User2 {
+  name: string;
+}
+
+const a2 = {};
+
+assertUser(a2);
+a2.name = 'Vasya';
+
+function assertUser(obj: unknown): asserts obj is User2 {
+  if (typeof obj === 'object' && !!obj && 'name' in obj) {
+    return;
+  }
+  throw new Error('Not User2');
+}
